@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/audiojs/audio-source",
   "devDependencies": {
+    "audio-buffer-utils": "^3.1.2",
     "audio-decode": "^1.0.3",
     "audio-lena": "^1.1.0",
     "audio-speaker": "^1.4.0",

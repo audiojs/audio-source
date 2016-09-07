@@ -18,7 +18,7 @@ module.exports = function createSourceReader (source, options) {
 	//main data holder
 	let sourceBuffer = isAudioBuffer(source) ? source : new AudioBuffer(channels, source, sampleRate);
 
-	readSlice.end = () => {ended = true;};
+	readSlice.end = () => {ended = true; return null;};
 
 	return readSlice;
 
@@ -38,6 +38,8 @@ module.exports = function createSourceReader (source, options) {
 		}
 
 		count += frameSize;
+
+		if (count > sourceBuffer.length) ended = true;
 
 		return outputBuffer;
 	}
