@@ -1,6 +1,7 @@
 /**
  * @module audio-source/direct
  */
+'use strict';
 
 const AudioBuffer = require('audio-buffer');
 const isAudioBuffer = require('is-audio-buffer');
@@ -15,7 +16,6 @@ module.exports = function createSourceReader (source, options) {
 	let ended = false;
 
 	//main data holder
-	console.log(channels)
 	let sourceBuffer = isAudioBuffer(source) ? source : new AudioBuffer(channels, source, sampleRate);
 
 	readSlice.end = () => {ended = true;};
