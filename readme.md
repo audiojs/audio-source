@@ -6,35 +6,57 @@ Create audio stream from _AudioBuffer_ or _ArrayBuffer_.
 
 [![npm install audio-source](https://nodei.co/npm/audio-source.png?mini=true)](https://npmjs.org/package/audio-source/)
 
+#### As a function
+
+Audio-source in functional style is a [sync source](https://github.com/audiojs/contributing/wiki/Streams-convention).
+
+```js
+const createSource = require('./direct');
+const createSpeaker = require('audio-speaker/direct');
+const lena = require('audio-lena/buffer');
+
+let read = Source(lena, {channels: 1});
+let write = Speaker({channels: 1});
+
+//create and start reading loop
+(function again (err, buf) {
+	//get next chunk
+	buf = read(buf);
+
+	//catch end
+	if (!buf) return;
+
+	//send chunk to speaker
+	write(buf, again);
+})();
+```
+
+#### As a pull-stream
+
+[Pull-streams](https://github.com/pull-stream/pull-stream) are awesome and [faster than streams](https://github.com/dfcreative/stream-contest) (but slower than plain fn).
+
+```js
+const pull = require('pull-stream/pull');
+const Source = require('./pull');
+const Speaker = require('audio-speaker/pull');
+const lena = require('audio-lena/buffer');
+
+let source = Source(lena, {channels: 1});
+let sink = Speaker({channels: 1});
+
+pull(source, sink);
+```
+
+#### As a stream
+
+Streams are concise:
+
 ```js
 const Source = require('audio-source/stream');
 const Speaker = require('audio-speaker/stream');
 const lena = require('audio-lena');
 
 Source(lena).pipe(Speaker());
-
-//create playable chopin
-var audioEl = doc.createElement('audio');
-audioEl.src = './chopin.mp3';
-
-var playBtn = doc.createElement('button');
-playBtn.className = 'play';
-root.appendChild(playBtn);
-
-on(playBtn, 'click', function () {
-	if (audioEl.paused) {
-		audioEl.play();
-		playBtn.classList.add('play-pause');
-	}
-	else {
-		audioEl.pause();
-		audioEl.currentTime = 0;
-		playBtn.classList.remove('play-pause');
-	}
-});
-
-spectrogram.setSource(audioEl);
-spectrogram.start();
 ```
 
 ## Related

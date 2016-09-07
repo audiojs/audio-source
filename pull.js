@@ -28,7 +28,9 @@ module.exports = function (buffer, opts) {
 	}
 
 	stream.abort = (err, cb) => {
-		if ('function' == typeof err) cb = err, err = true;
+		if ('function' == typeof err) {
+			cb = err; err = true;
+		}
 		ended = err || true;
 		return stream(true, cb);
 	}

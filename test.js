@@ -34,6 +34,7 @@ test('Pull-stream', (done) => {
 	const Speaker = require('audio-speaker/pull');
 
 	let source = Source(util.slice(AudioBuffer(1, lena), 44100*3, 44100*4), {channels: 1});
+	// let source = Source(lena, {channels: 1});
 	let sink = Speaker({channels: 1});
 
 	pull(source, sink);
