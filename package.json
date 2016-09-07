@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "audio-buffer": "^2.4.5",
+    "audio-through": "^2.1.9",
     "inherits": "^2.0.1",
     "is-audio-buffer": "^1.0.1",
     "pull-stream": "^3.4.5"

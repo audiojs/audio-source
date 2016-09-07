@@ -10,13 +10,26 @@ const isAudioBuffer = require('is-audio-buffer');
 module.exports = function createSourceReader (source, options) {
 	options = options || {};
 	let frameSize = options.samplesPerFrame || 1024;
-	let channels = options.channels || 2;
-	let sampleRate = options.sampleRate || 44100;
+	let channels;
+	let sampleRate;
+
 	let count = 0;
 	let ended = false;
 
-	//main data holder
-	let sourceBuffer = isAudioBuffer(source) ? source : new AudioBuffer(channels, source, sampleRate);
+	let sourceBuffer;
+
+	//detect source and params
+	if (isAudioBuffer(source)) {
+		sourceBuffer = source;
+		sampleRate = sourceBuffer.sampleRate;
+		channels = sourceBuffer.numberOfChannels;
+	}
+
+	else {
+		channels = options.channels || 2;
+		sampleRate = options.sampleRate || 44100;
+		sourceBuffer = new AudioBuffer(channels, source, sampleRate);
+	}
 
 	readSlice.end = () => {ended = true; return null;};
 
@@ -26,7 +39,7 @@ module.exports = function createSourceReader (source, options) {
 		if (ended) return null;
 		// console.log(outputBuffer.numberOfChannels)
 
-		if (!outputBuffer) {
+		if (!outputBuffer || outputBuffer.numberOfChannels !== channels) {
 			outputBuffer = new AudioBuffer(channels, frameSize, sampleRate);
 		}
 

@@ -33,7 +33,7 @@ test('Pull-stream', (done) => {
 	const Source = require('./pull');
 	const Speaker = require('audio-speaker/pull');
 
-	let source = Source(util.slice(AudioBuffer(1, lena), 44100*3, 44100*4), {channels: 1});
+	let source = Source(util.slice(AudioBuffer(1, lena), 44100*4, 44100*5), {channels: 1});
 	// let source = Source(lena, {channels: 1});
 	let sink = Speaker({channels: 1});
 
@@ -45,8 +45,21 @@ test('Pull-stream', (done) => {
 	}, 500);
 });
 
-test('Stream', () => {
+test('Stream', (done) => {
+	const Source = require('./stream');
+	const Speaker = require('audio-speaker/stream');
+	const lena = require('audio-lena/buffer');
 
+	let source = Source(AudioBuffer(1, lena), {channels: 1});
+
+	//FIXME: various number of channels
+	source.pipe(Speaker({channels: 1}));
+	// source.pipe(Speaker({channels: 2}));
+
+	setTimeout(() => {
+		source.end();
+		done()
+	}, 500);
 });
 
 
