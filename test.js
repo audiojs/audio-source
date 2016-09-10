@@ -7,7 +7,7 @@ const AudioBuffer = require('audio-buffer');
 const util = require('audio-buffer-utils');
 
 
-test.only('Direct', (done) => {
+test('Direct', (done) => {
 	const Source = require('./direct');
 	const Speaker = require('audio-speaker/direct');
 
