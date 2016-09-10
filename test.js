@@ -27,7 +27,7 @@ test('Direct', (done) => {
 	setTimeout(() => {
 		read.end();
 	}, 500);
-	setTimeout(done, 2000);
+	setTimeout(done, 600);
 });
 
 test('Pull-stream', (done) => {
