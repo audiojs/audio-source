@@ -7,14 +7,16 @@ const AudioBuffer = require('audio-buffer');
 const util = require('audio-buffer-utils');
 
 
-test('Direct', (done) => {
+test.only('Direct', (done) => {
 	const Source = require('./direct');
 	const Speaker = require('audio-speaker/direct');
 
-	let read = Source(lena, {channels: 1});
+	let read = Source(util.slice(util.create(1, lena), 44100/4, 44100/2), {
+		channels: 1, loop: true
+	}, () => console.log('end'));
 	let write = Speaker({channels: 1});
 
-	(function again (buf) {
+	;(function again (buf) {
 		buf = read(buf);
 		if (!buf) return;
 		write(buf, (err, buf) => {
@@ -24,8 +26,8 @@ test('Direct', (done) => {
 
 	setTimeout(() => {
 		read.end();
-		done();
 	}, 500);
+	setTimeout(done, 2000);
 });
 
 test('Pull-stream', (done) => {
