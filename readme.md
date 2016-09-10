@@ -6,16 +6,6 @@ Create audio stream from _AudioBuffer_ or _ArrayBuffer_.
 
 [![npm install audio-source](https://nodei.co/npm/audio-source.png?mini=true)](https://npmjs.org/package/audio-source/)
 
-```js
-const Source = require('audio-source');
-
-//create source reader
-let read = Source(audioBuffer, options?, endCallback?);
-
-//get next chunk of audio data
-let chunk = read();
-```
-
 #### As a function
 
 Audio-source in functional style is a [sync source](https://github.com/audiojs/contributing/wiki/Streams-convention).
@@ -67,6 +57,21 @@ const Speaker = require('audio-speaker/stream');
 const lena = require('audio-lena/buffer');
 
 Source(lena).pipe(Speaker());
+```
+
+### API
+
+```js
+const Source = require('audio-source');
+
+//create source reader
+let read = Source(audioBuffer, {channels: 2, loop: false}?, endCallback?);
+
+//get next chunk of audio data
+let chunk = read();
+
+//dispose stream
+read.end();
 ```
 
 ## Related
