@@ -11,8 +11,8 @@ Create audio stream from _AudioBuffer_ or _ArrayBuffer_.
 Audio-source in functional style is a [sync source](https://github.com/audiojs/contributing/wiki/Streams-convention).
 
 ```js
-const createSource = require('audio-source');
-const createSpeaker = require('audio-speaker/direct');
+const Source = require('audio-source');
+const Speaker = require('audio-speaker/direct');
 const lena = require('audio-lena/buffer');
 
 let read = Source(lena, {channels: 1});
