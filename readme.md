@@ -4,6 +4,8 @@ Create audio stream from _AudioBuffer_ or _ArrayBuffer_.
 
 ## Usage
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/audiojs/audio-source.svg)](https://greenkeeper.io/)
+
 [![npm install audio-source](https://nodei.co/npm/audio-source.png?mini=true)](https://npmjs.org/package/audio-source/)
 
 #### As a function
